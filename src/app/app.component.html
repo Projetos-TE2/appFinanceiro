@@ -1,0 +1,46 @@
+<ion-app>
+  <ion-menu contentId="main-content">
+    <ion-header class="menu-header">
+      <ion-toolbar>
+        <div class="menu-header-content">
+          <ion-icon name="wallet" size="large"></ion-icon>
+          <ion-title>Gestão Financeira</ion-title>
+        </div>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content class="menu-content">
+      <ion-list id="menu-list" lines="none">
+        @for (p of appPages; track p; let i = $index) {
+        <ion-menu-toggle auto-hide="false">
+          <ion-item routerDirection="root" 
+                    [routerLink]="[p.url]" 
+                    lines="none" 
+                    detail="false"
+                    routerLinkActive="selected"
+                    class="menu-item">
+            <ion-icon aria-hidden="true" 
+                      [name]="p.icon"
+                      slot="start">
+            </ion-icon>
+            <ion-label>{{ p.title }}</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        }
+      </ion-list>
+
+      <div class="menu-footer">
+        <ion-item lines="none" class="user-info">
+          <ion-avatar slot="start">
+            <img src="assets/icon/user-avatar.png" alt="User">
+          </ion-avatar>
+          <ion-label>
+            <h3>Usuário</h3>
+            <p>Versão 1.0.0</p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-app>

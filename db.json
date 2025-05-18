@@ -1,0 +1,121 @@
+{
+  "games": [
+    {
+      "title": "Salário Mensal",
+      "image": "https://cdn-icons-png.flaticon.com/512/2721/2721091.png",
+      "launchDate": "2024-03-05T03:00:00.000Z",
+      "price": 5000,
+      "category": "Receita",
+      "platforms": [
+        {
+          "id": "sal",
+          "name": "Salário",
+          "manufacture": "Receitas Fixas"
+        }
+      ],
+      "id": "1"
+    },
+    {
+      "title": "Aluguel",
+      "image": "https://cdn-icons-png.flaticon.com/512/1040/1040993.png",
+      "launchDate": "2024-03-10T03:00:00.000Z",
+      "price": -1500,
+      "category": "Despesa",
+      "platforms": [
+        {
+          "id": "mor",
+          "name": "Moradia",
+          "manufacture": "Despesas Fixas"
+        }
+      ],
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "title": "Conta de Luz",
+      "category": "Despesa",
+      "image": "https://cdn-icons-png.flaticon.com/512/1164/1164620.png",
+      "launchDate": "2024-03-15T00:00:00.000Z",
+      "platforms": [
+        {
+          "id": "uti",
+          "name": "Utilidades",
+          "manufacture": "Despesas Fixas"
+        }
+      ],
+      "price": -150
+    },
+    {
+      "title": "Freelance Design",
+      "image": "https://cdn-icons-png.flaticon.com/512/3135/3135679.png",
+      "launchDate": "2024-03-18T03:00:00.000Z",
+      "price": 800,
+      "category": "Receita",
+      "platforms": [
+        {
+          "id": "free",
+          "name": "Freelance",
+          "manufacture": "Receitas Variáveis"
+        }
+      ],
+      "id": "4"
+    },
+    {
+      "id": "942d",
+      "title": "Compra Carro",
+      "image": "https://cdn-icons-png.flaticon.com/512/2736/2736918.png",
+      "launchDate": "2025-05-16T03:00:00.000Z",
+      "price": -22000,
+      "category": "Despesa",
+      "platforms": [
+        {
+          "id": "uti",
+          "name": "Utilidades",
+          "manufacture": "Despesas Fixas"
+        }
+      ]
+    }
+  ],
+  "platforms": [
+    {
+      "id": "sal",
+      "name": "Salário",
+      "manufacture": "Receitas Fixas"
+    },
+    {
+      "id": "free",
+      "name": "Freelance",
+      "manufacture": "Receitas Variáveis"
+    },
+    {
+      "id": "inv",
+      "name": "Investimentos",
+      "manufacture": "Receitas Variáveis"
+    },
+    {
+      "id": "mor",
+      "name": "Moradia",
+      "manufacture": "Despesas Fixas"
+    },
+    {
+      "id": "uti",
+      "name": "Utilidades",
+      "manufacture": "Despesas Fixas"
+    },
+    {
+      "id": "ali",
+      "name": "Alimentação",
+      "manufacture": "Despesas Variáveis"
+    },
+    {
+      "id": "trans",
+      "name": "Transporte",
+      "manufacture": "Despesas Variáveis"
+    },
+    {
+      "id": "lazer",
+      "name": "Lazer",
+      "manufacture": "Despesas Variáveis"
+    }
+  ]
+}

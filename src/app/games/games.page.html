@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Transações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Transações</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="transaction-container">
+    <ion-list-header>
+      <ion-label>Lista de Transações</ion-label>
+    </ion-list-header>
+
+    @for(transaction of gamesList; track transaction.title) {
+    <ion-card class="transaction-card">
+      <div class="transaction-content">
+        <div class="transaction-icon">
+          @if(transaction.image) {
+          <img [src]="transaction.image" />
+          } @else {
+          <img src="assets/icon/transaction.png" />
+          }
+        </div>
+        
+        <div class="transaction-details">
+          <div class="transaction-header">
+            <h2>{{ transaction.title }}</h2>
+            <span class="transaction-date">{{transaction.launchDate | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          
+          <div class="transaction-info">
+            <span class="transaction-category">{{ transaction.category }}</span>
+            <div class="transaction-categories">
+              @for(platform of transaction.platforms; track platform) {
+              <ion-chip>
+                <ion-label>{{platform.name}}</ion-label>
+                <ion-label class="chip-subtitle">{{platform.manufacture}}</ion-label>
+              </ion-chip>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="transaction-amount" [class]="getValorClass(transaction.price)">
+          {{transaction.price | currency: 'BRL'}}
+        </div>
+
+        <div class="transaction-actions">
+          <ion-button fill="clear" size="small" [routerLink]="['edit', transaction.id]">
+            <ion-icon name="create" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" size="small" color="danger" (click)="remove(transaction)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+    }
+    @empty {
+    <ion-card class="empty-state">
+      <ion-card-content>
+        <ion-icon name="wallet-outline" size="large"></ion-icon>
+        <p>Nenhuma transação registrada ainda!</p>
+      </ion-card-content>
+    </ion-card>
+    }
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="botao-adicionar" [routerLink]="['new']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
