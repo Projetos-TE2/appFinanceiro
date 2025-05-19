@@ -1,0 +1,64 @@
+<ion-header class="modern-header" [translucent]="true">
+  <ion-toolbar class="modern-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="modern-title">Contas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Contas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="transaction-container">
+    @for(account of accountsList; track account.id) {
+    <ion-card class="transaction-card">
+      <div class="transaction-content">
+        <div class="transaction-icon">
+          <ion-icon name="card-outline" size="large"></ion-icon>
+        </div>
+        <div class="transaction-details">
+          <div class="transaction-header">
+            <h2>{{ account.name }}</h2>
+            <span class="transaction-date">{{account.institution}}</span>
+          </div>
+          <div class="transaction-info">
+            <span class="transaction-category">{{ account.type }}</span>
+            <div class="transaction-categories">
+              <ion-chip *ngIf="account.manufacture">
+                <ion-label>{{account.manufacture}}</ion-label>
+              </ion-chip>
+            </div>
+          </div>
+        </div>
+        <div class="transaction-amount valor-positivo">
+          {{account.balance | currency: 'BRL'}}
+        </div>
+        <div class="transaction-actions">
+          <ion-button fill="clear" size="small" color="danger" (click)="remove(account)">
+            <ion-icon name="trash" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-card>
+    }
+    @empty {
+    <ion-card class="empty-state">
+      <ion-card-content>
+        <ion-icon name="card-outline" size="large"></ion-icon>
+        <p>Nenhuma conta cadastrada ainda!</p>
+      </ion-card-content>
+    </ion-card>
+    }
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="botao-adicionar">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

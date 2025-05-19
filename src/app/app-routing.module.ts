@@ -16,12 +16,20 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'games',
-    loadChildren: () => import('./games/games.module').then( m => m.GamesPageModule)
+    path: 'transactions',
+    loadChildren: () => import('./transactions/transactions.module').then( m => m.TransactionsPageModule)
   },
   {
-    path: 'studios',
-    loadChildren: () => import('./studios/studios.module').then( m => m.StudiosPageModule)
+    path: 'categories',
+    loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
+  },
+  {
+    path: 'accounts',
+    loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)
+  },
+  {
+    path: 'people',
+    loadChildren: () => import('./people/people.module').then(m => m.PeopleModule)
   }
 ];
 

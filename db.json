@@ -1,12 +1,12 @@
 {
-  "games": [
+  "transactions": [
     {
       "title": "Salário Mensal",
       "image": "https://cdn-icons-png.flaticon.com/512/2721/2721091.png",
       "launchDate": "2024-03-05T03:00:00.000Z",
       "price": 5000,
       "category": "Receita",
-      "platforms": [
+      "accounts": [
         {
           "id": "sal",
           "name": "Salário",
@@ -21,7 +21,7 @@
       "launchDate": "2024-03-10T03:00:00.000Z",
       "price": -1500,
       "category": "Despesa",
-      "platforms": [
+      "accounts": [
         {
           "id": "mor",
           "name": "Moradia",
@@ -36,7 +36,7 @@
       "category": "Despesa",
       "image": "https://cdn-icons-png.flaticon.com/512/1164/1164620.png",
       "launchDate": "2024-03-15T00:00:00.000Z",
-      "platforms": [
+      "accounts": [
         {
           "id": "uti",
           "name": "Utilidades",
@@ -51,7 +51,7 @@
       "launchDate": "2024-03-18T03:00:00.000Z",
       "price": 800,
       "category": "Receita",
-      "platforms": [
+      "accounts": [
         {
           "id": "free",
           "name": "Freelance",
@@ -67,7 +67,7 @@
       "launchDate": "2025-05-16T03:00:00.000Z",
       "price": -22000,
       "category": "Despesa",
-      "platforms": [
+      "accounts": [
         {
           "id": "uti",
           "name": "Utilidades",
@@ -76,46 +76,46 @@
       ]
     }
   ],
-  "platforms": [
+  "categories": [
     {
-      "id": "sal",
-      "name": "Salário",
-      "manufacture": "Receitas Fixas"
+      "id": "1",
+      "name": "Receita"
     },
     {
-      "id": "free",
-      "name": "Freelance",
-      "manufacture": "Receitas Variáveis"
+      "id": "2",
+      "name": "Despesa"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "1",
+      "name": "Conta Corrente",
+      "type": "Corrente",
+      "balance": 2500.00,
+      "institution": "Banco do Brasil"
     },
     {
-      "id": "inv",
-      "name": "Investimentos",
-      "manufacture": "Receitas Variáveis"
+      "id": "2",
+      "name": "Poupança",
+      "type": "Poupança",
+      "balance": 5000.00,
+      "institution": "Caixa Econômica"
+    }
+  ],
+  "people": [
+    {
+      "id": "1",
+      "name": "João Silva",
+      "email": "joao@email.com",
+      "phone": "11999999999",
+      "notes": "Amigo de trabalho"
     },
     {
-      "id": "mor",
-      "name": "Moradia",
-      "manufacture": "Despesas Fixas"
-    },
-    {
-      "id": "uti",
-      "name": "Utilidades",
-      "manufacture": "Despesas Fixas"
-    },
-    {
-      "id": "ali",
-      "name": "Alimentação",
-      "manufacture": "Despesas Variáveis"
-    },
-    {
-      "id": "trans",
-      "name": "Transporte",
-      "manufacture": "Despesas Variáveis"
-    },
-    {
-      "id": "lazer",
-      "name": "Lazer",
-      "manufacture": "Despesas Variáveis"
+      "id": "2",
+      "name": "Maria Oliveira",
+      "email": "maria@email.com",
+      "phone": "11988888888",
+      "notes": "Família"
     }
   ]
 }

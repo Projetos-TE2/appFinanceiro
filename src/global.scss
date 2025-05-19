@@ -140,3 +140,9 @@ ion-menu {
     }
   }
 }
+
+body, html, ion-app, ion-content {
+  background: #fff !important;
+  color: initial !important;
+  font-family: initial !important;
+}

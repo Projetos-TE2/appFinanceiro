@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home'},
-    { title: 'Transações', url: '/games', icon: 'cash' },
-    { title: 'Categorias', url: '/studios', icon: 'folder' },
+    { title: 'Transações', url: '/transactions', icon: 'cash' },
+    { title: 'Categorias', url: '/categories', icon: 'folder' },
   ];
 
   constructor() {}

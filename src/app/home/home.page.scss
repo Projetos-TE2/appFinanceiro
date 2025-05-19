@@ -41,3 +41,156 @@
 .valor-negativo {
   color: var(--ion-color-danger);
 }
+
+.dashboard-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 0 0 0; // Remove o padding-top extra
+  margin-top: 24px; // Reduz a distância do header
+}
+
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.1em;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+  margin-bottom: 0.2em;
+}
+
+.dashboard-date {
+  color: var(--ion-color-medium);
+  font-size: 1.1em;
+}
+
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.balance-card-modern {
+  background: var(--app-gradient);
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(25, 118, 210, 0.12);
+}
+
+.balance-card-modern .balance-amount {
+  font-size: 2.2em;
+  font-weight: bold;
+  margin: 12px 0;
+  color: #fff;
+}
+
+.dashboard-quick {
+  display: flex;
+  gap: 18px;
+}
+
+.summary-card-modern {
+  flex: 1;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px 0 rgba(67, 160, 71, 0.08);
+  background: #fff;
+}
+
+.summary-card-modern.receita .valor-positivo {
+  color: var(--ion-color-success);
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.summary-card-modern.despesa .valor-negativo {
+  color: var(--ion-color-danger);
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.dashboard-chart {
+  margin-top: 32px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(25, 118, 210, 0.08);
+  padding: 24px 12px 12px 12px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dashboardChart {
+  width: 100% !important;
+  max-width: 600px;
+  height: 260px !important;
+}
+
+.modern-header {
+  background: var(--app-gradient);
+  box-shadow: 0 2px 12px 0 rgba(25, 118, 210, 0.10);
+  border-radius: 0 !important;
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.modern-toolbar {
+  --background: transparent;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  z-index: 1002;
+  position: relative;
+}
+
+.modern-title {
+  color: #fff;
+  font-size: 2em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-right: 32px;
+}
+
+.modern-nav {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.modern-nav a {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.1em;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.modern-nav a.active, .modern-nav a:hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+
+ion-content {
+  --padding-top: 110px;
+}
+
+@media (max-width: 700px) {
+  .dashboard-main, .dashboard-quick {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .dashboard-header h1 {
+    font-size: 1.3em;
+  }
+}

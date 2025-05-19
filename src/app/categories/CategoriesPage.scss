@@ -1,0 +1,33 @@
+@import '../transactions/transactions.page.scss';
+
+/* Remove rounded e gradient do bloco logo abaixo do menu/header */
+.modern-header, .modern-toolbar {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  background: var(--ion-color-primary) !important;
+  box-shadow: none !important;
+}
+
+/* Remove qualquer card ou bloco com gradient e rounded logo abaixo do header */
+.dashboard-header, .dashboard-main, .dashboard-quick, .balance-card-modern, .summary-card-modern, .dashboard-chart {
+  border-radius: 0 !important;
+  background: #fff !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+
+/* Remove qualquer sombra ou arredondamento de cards genéricos */
+ion-card, .transaction-card, .empty-state {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+ion-header, ion-toolbar, .modern-header, .modern-toolbar {
+  border-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  --border-radius: 0 !important;
+  background-image: none !important;
+}
