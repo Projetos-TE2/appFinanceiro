@@ -15,42 +15,46 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="dashboard-container">
-    <div class="dashboard-main">
-      <ion-card class="balance-card-modern">
-        <ion-card-header>
-          <ion-card-title>Saldo Total</ion-card-title>
-        </ion-card-header>
+    <div class="dashboard-flex">
+      <div class="dashboard-main">
+        <ion-card class="balance-card-modern">
+          <ion-card-header>
+            <ion-card-title>Saldo Total</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="balance-amount" [ngClass]="{'valor-positivo': saldoTotal > 0, 'valor-negativo': saldoTotal <= 0}">
+              {{ saldoTotal | currency:'BRL' }}
+            </div>
+          </ion-card-content>
+        </ion-card>
+        <div class="dashboard-quick">
+          <ion-card class="summary-card-modern receita">
+            <ion-card-header>
+              <ion-card-subtitle>Receitas</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="valor-positivo">
+                {{ totalReceitas | currency:'BRL' }}
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="summary-card-modern despesa">
+            <ion-card-header>
+              <ion-card-subtitle>Despesas</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="valor-negativo">
+                {{ totalDespesas | currency:'BRL' }}
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+      <ion-card class="dashboard-stats dashboard-chart">
         <ion-card-content>
-          <div class="balance-amount" [ngClass]="{'valor-positivo': saldoTotal > 0, 'valor-negativo': saldoTotal <= 0}">
-            {{ saldoTotal | currency:'BRL' }}
-          </div>
+          <canvas id="dashboardBarChart" height="220"></canvas>
         </ion-card-content>
       </ion-card>
-      <div class="dashboard-quick">
-        <ion-card class="summary-card-modern receita">
-          <ion-card-header>
-            <ion-card-subtitle>Receitas</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="valor-positivo">
-              {{ totalReceitas | currency:'BRL' }}
-            </div>
-          </ion-card-content>
-        </ion-card>
-        <ion-card class="summary-card-modern despesa">
-          <ion-card-header>
-            <ion-card-subtitle>Despesas</ion-card-subtitle>
-          </ion-card-header>
-          <ion-card-content>
-            <div class="valor-negativo">
-              {{ totalDespesas | currency:'BRL' }}
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </div>
-      <div class="dashboard-chart">
-        <canvas id="dashboardLineChart"></canvas>
-      </div>
     </div>
   </div>
 </ion-content>

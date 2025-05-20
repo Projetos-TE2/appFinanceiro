@@ -15,12 +15,7 @@ export class HomePage implements OnInit, AfterViewInit {
   totalReceitas = 0;
   totalDespesas = 0;
   today = new Date();
-  chart: any;
-
-  // Exemplo de dados para o gráfico de linhas
-  chartLabels: string[] = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-  chartReceitas: number[] = [1200, 1500, 1800, 2000, 2100, 2500, 2300, 2200, 2100, 2000, 1900, 1800];
-  chartDespesas: number[] = [800, 900, 1000, 1200, 1100, 1300, 1250, 1200, 1150, 1100, 1050, 1000];
+  private chart: any;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -31,7 +26,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.renderLineChart();
+    this.renderBarChart();
   }
 
   private atualizarSaldos() {
@@ -48,52 +43,127 @@ export class HomePage implements OnInit, AfterViewInit {
     });
   }
 
-  renderLineChart() {
+  renderBarChart() {
     if (typeof Chart === 'undefined') return;
-    const ctx = document.getElementById('dashboardLineChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('dashboardBarChart') as HTMLCanvasElement;
     if (!ctx) return;
-    this.chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: this.chartLabels,
-        datasets: [
-          {
-            label: 'Receitas',
-            data: this.chartReceitas,
-            borderColor: 'rgba(67, 160, 71, 0.85)',
-            backgroundColor: 'rgba(67, 160, 71, 0.12)',
-            tension: 0.4,
-            fill: true,
-            pointRadius: 4,
-            pointBackgroundColor: 'rgba(67, 160, 71, 1)'
-          },
-          {
-            label: 'Despesas',
-            data: this.chartDespesas,
-            borderColor: 'rgba(229, 57, 53, 0.85)',
-            backgroundColor: 'rgba(229, 57, 53, 0.12)',
-            tension: 0.4,
-            fill: true,
-            pointRadius: 4,
-            pointBackgroundColor: 'rgba(229, 57, 53, 1)'
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true, position: 'bottom' }
+    this.transactionService.getList().subscribe((transactions: Transaction[]) => {
+      const receitasPorMes: number[] = Array(12).fill(0);
+      const despesasPorMes: number[] = Array(12).fill(0);
+      transactions.forEach((t: Transaction) => {
+        const data = new Date(t.launchDate);
+        const mes = data.getMonth();
+        if (t.category === 'Receita') {
+          receitasPorMes[mes] += Number(t.price);
+        } else if (t.category === 'Despesa') {
+          despesasPorMes[mes] += Math.abs(Number(t.price));
+        }
+      });
+      if (this.chart) this.chart.destroy();
+      const ctx2d = ctx.getContext('2d');
+      if (!ctx2d) return;
+      // Gradiente para saldo (azul padrão)
+      const saldoGradient = ctx2d.createLinearGradient(0, 0, 0, ctx.height);
+      saldoGradient.addColorStop(0, 'rgba(33, 150, 243, 0.4)');
+      saldoGradient.addColorStop(1, 'rgba(33, 150, 243, 0.05)');
+      // Calcular saldo acumulado mês a mês
+      const saldoPorMes: number[] = [];
+      let saldoAcumulado = 0;
+      for (let i = 0; i < 12; i++) {
+        saldoAcumulado += receitasPorMes[i] - despesasPorMes[i];
+        saldoPorMes.push(saldoAcumulado);
+      }
+      this.chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+          datasets: [
+            {
+              label: '',
+              data: saldoPorMes,
+              fill: true,
+              backgroundColor: saldoGradient,
+              borderColor: 'rgba(33, 150, 243, 1)',
+              pointBackgroundColor: 'rgba(33, 150, 243, 1)',
+              pointBorderColor: '#fff',
+              tension: 0.4,
+              borderWidth: 2,
+              pointRadius: 0,
+              pointHoverRadius: 0,
+              clip: false
+            }
+          ]
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { color: '#263238', font: { weight: 600 } }
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          devicePixelRatio: 2,
+          layout: { padding: 0 },
+          animation: {
+            duration: 750,
+            easing: 'easeInOutQuart'
           },
-          x: {
-            ticks: { color: '#263238', font: { weight: 600 } }
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(33, 150, 243, 0.95)',
+              titleColor: '#fff',
+              bodyColor: '#fff',
+              titleFont: {
+                family: "Arial, Helvetica, sans-serif",
+                size: 14,
+                weight: '600'
+              },
+              bodyFont: {
+                family: "Arial, Helvetica, sans-serif",
+                size: 13,
+                weight: '500'
+              },
+              padding: 12,
+              cornerRadius: 8,
+              displayColors: true,
+              usePointStyle: true
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: '#2f374a',
+                drawBorder: false
+              },
+              border: {
+                display: false
+              },
+              ticks: { 
+                color: '#2f374a', 
+                font: { 
+                  family: "Arial, Helvetica, sans-serif",
+                  size: 12,
+                  weight: '550' 
+                },
+                padding: 8,
+                callback: function(value: number) {
+                  return value.toLocaleString('pt-BR');
+                },
+                maxTicksLimit: 8
+              },
+              maxTicksLimit: 8
+            },
+            x: {
+              grid: {
+                display: false,
+                drawBorder: false,
+                color: 'transparent',
+              },
+              ticks: {
+                display: false
+              },
+              offset: false
+            }
           }
         }
-      }
+      });
     });
   }
 }

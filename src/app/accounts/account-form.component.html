@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/accounts"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nova Conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="accountForm" (ngSubmit)="save()" novalidate>
+    <ion-list>
+      <ion-item [class.invalid]="isInvalid('name')">
+        <ion-input formControlName="name" labelPlacement="floating" label="Nome" type="text"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('name')">Nome é obrigatório.</ion-note>
+
+      <ion-item [class.invalid]="isInvalid('institution')">
+        <ion-input formControlName="institution" labelPlacement="floating" label="Instituição" type="text"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('institution')">Instituição é obrigatória.</ion-note>
+
+      <ion-item [class.invalid]="isInvalid('type')">
+        <ion-input formControlName="type" labelPlacement="floating" label="Tipo" type="text"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('type')">Tipo é obrigatório.</ion-note>
+
+      <ion-item [class.invalid]="isInvalid('balance')">
+        <ion-input formControlName="balance" labelPlacement="floating" label="Saldo" type="number"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('balance')">Saldo é obrigatório.</ion-note>
+
+      <ion-item>
+        <ion-input formControlName="manufacture" labelPlacement="floating" label="Fabricante" type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]="accountForm.invalid || loading" (click)="accountForm.valid && save()">
+      <ion-icon *ngIf="!loading" name="checkmark"></ion-icon>
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

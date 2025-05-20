@@ -1,4 +1,132 @@
 /* Estilos para a página de contas */
 
-@import '../transactions/transactions.page.scss';
-// Você pode adicionar estilos específicos de contas abaixo, se necessário.
+// Ajustes específicos para a página de contas
+
+.transaction-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  position: relative;
+}
+
+.transaction-icon {
+  background: #151d32 !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-icon img, .transaction-icon ion-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--ion-color-light);
+  box-shadow: 0 2px 8px 0 rgba(25, 118, 210, 0.08);
+  object-fit: cover;
+}
+
+.transaction-icon ion-icon {
+  color: #fff !important;
+  filter: drop-shadow(0 0 2px #0008);
+}
+
+.transaction-details {
+  flex: 1 1 0%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.transaction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.transaction-date {
+  font-size: 0.95em;
+  color: var(--ion-color-medium);
+}
+
+.transaction-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.transaction-category {
+  font-size: 0.95em;
+  color: var(--ion-color-dark-tint);
+  font-weight: 500;
+}
+
+.transaction-categories {
+  display: flex;
+  gap: 4px;
+}
+
+.transaction-amount {
+  min-width: 100px;
+  text-align: right;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--ion-color-success);
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.transaction-amount.valor-positivo {
+  align-self: flex-start;
+  margin-left: auto;
+  margin-right: 0;
+  display: flex;
+  align-items: flex-start;
+  height: 100%;
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--ion-color-success);
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+  min-width: 120px;
+  justify-content: flex-end;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.valor-positivo {
+  color: var(--ion-color-success);
+  font-size: 1.3em;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+// Deixa todos os textos brancos, exceto valores
+.transaction-details, .transaction-header, .transaction-info, .transaction-category, .transaction-categories, .transaction-categories ion-chip, .transaction-categories ion-label, .transaction-categories ion-chip ion-label, .transaction-categories ion-chip .chip-subtitle, .transaction-categories .chip-subtitle, .transaction-categories .transaction-category, .transaction-categories .transaction-info, .transaction-categories .transaction-header, .transaction-categories .transaction-details {
+  color: #fff !important;
+}
+
+@media (max-width: 700px) {
+  .transaction-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .transaction-amount.valor-positivo {
+    margin: 0 0 0 auto;
+    align-self: flex-end;
+    min-width: unset;
+  }
+}

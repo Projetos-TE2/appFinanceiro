@@ -10,6 +10,7 @@ import { TransactionsPage } from './transactions.page';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 import { MaskitoDirective } from '@maskito/angular';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryService } from 'src/app/categories/category.service';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     TransactionsPage,
     TransactionFormComponent,
-  ]
+  ],
+  providers: [CategoryService]
 })
 export class TransactionsPageModule {}

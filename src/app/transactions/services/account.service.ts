@@ -5,18 +5,27 @@ import { Observable } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
+  private readonly API_URL = 'http://localhost:3000/accounts';
 
   constructor(private http: HttpClient) {}
 
-  getAccounts(): Observable<Account[]> {
-    return this.http.get<Account[]>('http://localhost:3000/platforms/');
+  getList(): Observable<Account[]> {
+    return this.http.get<Account[]>(this.API_URL);
   }
 
-  getList() {
-    return this.http.get<Account[]>('http://localhost:3000/accounts');
+  getById(id: number): Observable<Account> {
+    return this.http.get<Account>(`${this.API_URL}/${id}`);
   }
 
-  remove(account: Account) {
-    return this.http.delete<Account>(`http://localhost:3000/accounts/${account.id}`);
+  create(account: Account): Observable<Account> {
+    return this.http.post<Account>(this.API_URL, account);
+  }
+
+  update(account: Account): Observable<Account> {
+    return this.http.put<Account>(`${this.API_URL}/${account.id}`, account);
+  }
+
+  remove(account: Account): Observable<Account> {
+    return this.http.delete<Account>(`${this.API_URL}/${account.id}`);
   }
 }

@@ -4,10 +4,12 @@ import { dateMask, priceMask, maskitoElement, parseDateMask, formatDateMask, par
 import { ApplicationValidators } from 'src/app/core/validators/url.validator';
 import { TransactionService } from '../services/transaction.service';
 import { AccountService } from '../services/account.service';
+import { CategoryService } from 'src/app/categories/category.service';
 import { Account } from '../models/account.type';
 import { Transaction } from '../models/transaction.type';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { EventService } from 'src/app/core/services/event.service';
 
 @Component({
   selector: 'app-transaction-form',
@@ -32,17 +34,22 @@ export class TransactionFormComponent implements OnInit {
     launchDate: new FormControl(''),
     price: new FormControl(0, [Validators.required]),
     category: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required), // novo campo para tipo
     accounts: new FormControl('', Validators.required)
   });
   transactionId!: number;
   accounts: Account[] = [];
+  categories: any[] = [];
+  loading = false;
 
   constructor(
     private transactionService: TransactionService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private accountService: AccountService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private categoryService: CategoryService,
+    private eventService: EventService
   ) {
     const transactionId = this.activatedRoute.snapshot.params['transactionId'];
     if (transactionId) {
@@ -84,12 +91,23 @@ export class TransactionFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accountService.getAccounts().subscribe({
+    // Carregar contas corretamente
+    this.accountService.getList().subscribe({
       next: (data: Account[]) => {
         this.accounts = data;
       },
       error: (error: any) => {
-        alert('Erro ao carregar contas/categorias.');
+        alert('Erro ao carregar contas.');
+        console.error(error)
+      }
+    });
+    // Carregar categorias
+    this.categoryService.getList().subscribe({
+      next: (data: any[]) => {
+        this.categories = data;
+      },
+      error: (error: any) => {
+        alert('Erro ao carregar categorias.');
         console.error(error)
       }
     });
@@ -104,33 +122,42 @@ export class TransactionFormComponent implements OnInit {
     return formControl?.touched && formControl?.errors?.[error]
   }
 
+  isInvalid(control: string): boolean {
+    const ctrl = this.transactionForm.get(control);
+    return !!ctrl && ctrl.invalid && (ctrl.dirty || ctrl.touched);
+  }
+
   save() {
-    let { value } = this.transactionForm;
-    if (value.launchDate) {
-      value.launchDate = parseDateMask(value.launchDate)
-    }
-    if (value.price) {
-      let price = parseNumberMask(value.price);
-      // Garante que o valor seja negativo para despesas
-      if (value.category === 'Despesa' && price > 0) {
-        price = -price;
-      }
-      value.price = price;
-    }
-    this.transactionService.save({
-      ...value,
-      id: this.transactionId
-    }).subscribe({
+    if (this.transactionForm.invalid) return;
+    this.loading = true;
+
+    const formValue = this.transactionForm.value;
+    const transaction: Transaction = {
+      ...formValue,
+      launchDate: parseDateMask(formValue.launchDate, 'yyyy/mm/dd'),
+      price: parseNumberMask(formValue.price),
+      accounts: this.accounts.filter(account => account.name === formValue.accounts)
+    };
+
+    this.transactionService.create(transaction).subscribe({
       next: () => {
+        this.loading = false;
+        this.eventService.notifyDataChanged();
         this.toastController.create({
-          message: 'Transação salva com sucesso!',
-          duration: 3000,
-        }).then((toast: any) => toast.present());
+          message: 'Transação criada com sucesso!',
+          duration: 2000,
+          color: 'success'
+        }).then(t => t.present());
         this.router.navigate(['/transactions']);
       },
-      error: (error: any) => {
-        alert('Erro ao salvar a transação ' + value.title + '!');
-        console.error(error);
+      error: (error) => {
+        this.loading = false;
+        console.error('Erro ao criar transação:', error);
+        this.toastController.create({
+          message: 'Erro ao criar transação.',
+          duration: 2000,
+          color: 'danger'
+        }).then(t => t.present());
       }
     });
   }

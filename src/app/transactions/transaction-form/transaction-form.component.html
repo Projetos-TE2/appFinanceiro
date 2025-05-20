@@ -1,64 +1,68 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/games"></ion-back-button>
+      <ion-back-button defaultHref="/transactions"></ion-back-button>
     </ion-buttons>
     <ion-title>Nova Transação</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="transactionForm">
+  <form [formGroup]="transactionForm" (ngSubmit)="save()" novalidate>
     <ion-list>
-      <ion-item>
-        <ion-input formControlName="title" labelPlacement="floating" label="Descrição: " type="text"></ion-input>
-        <p class="validation-error">
-        @if(hasError('title', 'required')) {
-          O campo é obrigatório
-        }
-        @if(hasError('title', 'minlength')) {
-          A descrição deve ter no mínimo 3 caracteres
-        }
-        @if(hasError('title', 'maxlength')) {
-          A descrição deve ter no máximo 150 caracteres
-        }
-        </p>
+      <ion-item [class.invalid]="isInvalid('title')">
+        <ion-input formControlName="title" labelPlacement="floating" label="Descrição" type="text"></ion-input>
       </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('title')">
+        <ng-container *ngIf="transactionForm.get('title')?.errors?.['required']">O campo é obrigatório.</ng-container>
+        <ng-container *ngIf="transactionForm.get('title')?.errors?.['minlength']">A descrição deve ter no mínimo 3 caracteres.</ng-container>
+        <ng-container *ngIf="transactionForm.get('title')?.errors?.['maxlength']">A descrição deve ter no máximo 150 caracteres.</ng-container>
+      </ion-note>
 
-      <ion-item>
-        <ion-input formControlName="price" labelPlacement="floating" label="Valor" type="text" [maskito]="priceMask"
-          [maskitoElement]="maskitoElement" />
+      <ion-item [class.invalid]="isInvalid('price')">
+        <ion-input formControlName="price" labelPlacement="floating" label="Valor" type="text" [maskito]="priceMask" [maskitoElement]="maskitoElement"></ion-input>
       </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('price')">Valor é obrigatório.</ion-note>
 
-      <ion-item>
-        <ion-select formControlName="category" label="Tipo" label-placement="floating">
+      <ion-item [class.invalid]="isInvalid('category')">
+        <ion-select formControlName="category" label="Categoria" label-placement="floating">
+          <ion-select-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('category')">Categoria é obrigatória.</ion-note>
+
+      <ion-item [class.invalid]="isInvalid('type')">
+        <ion-select formControlName="type" label="Tipo" label-placement="floating">
           <ion-select-option value="Receita">Receita</ion-select-option>
           <ion-select-option value="Despesa">Despesa</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('type')">Tipo é obrigatório.</ion-note>
 
       <ion-item>
-        <ion-input formControlName="launchDate" labelPlacement="floating" label="Data" [maskito]="dateMask"
-          [maskitoElement]="maskitoElement" />
+        <ion-input formControlName="launchDate" labelPlacement="floating" label="Data" [maskito]="dateMask" [maskitoElement]="maskitoElement"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-input formControlName="image" labelPlacement="floating" label="URL da Imagem" type="text"></ion-input>
-      </ion-item>
-      
-      <ion-item>
-        <ion-select formControlName="accounts" [compareWith]="compareWith" label="Categorias" label-placement="floating" multiple="true">
-          @for(account of accounts; track account) {
-            <ion-select-option [value]="account">{{account.name}} ({{account.manufacture}})</ion-select-option>
-          }
+      <ion-item [class.invalid]="isInvalid('accounts')">
+        <ion-select formControlName="accounts" label="Conta" label-placement="floating">
+          <ion-select-option *ngFor="let account of accounts" [value]="account.name">{{account.name}}</ion-select-option>
         </ion-select>
       </ion-item>
-    </ion-list>
+      <ion-note color="danger" *ngIf="isInvalid('accounts')">Conta é obrigatória.</ion-note>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button [disabled]="transactionForm.invalid" (click)="save()" class="botao-adicionar">
-        <ion-icon name="checkmark"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+      <ion-item [class.invalid]="isInvalid('image')">
+        <ion-input formControlName="image" labelPlacement="floating" label="Imagem (URL)" type="text"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="isInvalid('image')">
+        <ng-container *ngIf="transactionForm.get('image')?.errors?.['required']">Imagem é obrigatória.</ng-container>
+        <ng-container *ngIf="transactionForm.get('image')?.errors?.['url']">URL inválida.</ng-container>
+      </ion-note>
+    </ion-list>
   </form>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]="transactionForm.invalid || loading" (click)="transactionForm.valid && save()">
+      <ion-icon *ngIf="!loading" name="checkmark"></ion-icon>
+      <ion-spinner *ngIf="loading" name="crescent"></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

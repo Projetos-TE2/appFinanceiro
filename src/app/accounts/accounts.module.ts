@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AccountsPage } from './accounts.page';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountFormComponent } from './account-form.component';
 
 const routes: Routes = [
-  { path: '', component: AccountsPage }
+  { path: '', component: AccountsPage },
+  { path: 'new', component: AccountFormComponent }
 ];
 
 @NgModule({
@@ -13,7 +15,13 @@ const routes: Routes = [
     CommonModule,
     IonicModule,
     RouterModule.forChild(routes),
-    AccountsPage // Importando como standalone
+    AccountFormComponent // Importa como standalone
+  ],
+  declarations: [
+    AccountsPage
+  ],
+  exports: [
+    AccountsPage
   ]
 })
 export class AccountsModule { }

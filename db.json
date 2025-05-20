@@ -59,31 +59,36 @@
         }
       ],
       "id": "4"
-    },
-    {
-      "id": "942d",
-      "title": "Compra Carro",
-      "image": "https://cdn-icons-png.flaticon.com/512/2736/2736918.png",
-      "launchDate": "2025-05-16T03:00:00.000Z",
-      "price": -22000,
-      "category": "Despesa",
-      "accounts": [
-        {
-          "id": "uti",
-          "name": "Utilidades",
-          "manufacture": "Despesas Fixas"
-        }
-      ]
     }
   ],
   "categories": [
     {
-      "id": "1",
-      "name": "Receita"
-    },
-    {
       "id": "2",
       "name": "Despesa"
+    },
+    {
+      "id": "0b4d",
+      "name": "Teste",
+      "type": "teste",
+      "description": "teste"
+    },
+    {
+      "id": "f433",
+      "name": "teste2",
+      "type": "teste2",
+      "description": ""
+    },
+    {
+      "id": "7398",
+      "name": "teste3",
+      "type": "teste3",
+      "description": ""
+    },
+    {
+      "id": "2622",
+      "name": "teste",
+      "type": "teste",
+      "description": "teste"
     }
   ],
   "accounts": [
@@ -91,31 +96,16 @@
       "id": "1",
       "name": "Conta Corrente",
       "type": "Corrente",
-      "balance": 2500.00,
+      "balance": 2500,
       "institution": "Banco do Brasil"
     },
     {
       "id": "2",
       "name": "Poupança",
       "type": "Poupança",
-      "balance": 5000.00,
+      "balance": 5000,
       "institution": "Caixa Econômica"
     }
   ],
-  "people": [
-    {
-      "id": "1",
-      "name": "João Silva",
-      "email": "joao@email.com",
-      "phone": "11999999999",
-      "notes": "Amigo de trabalho"
-    },
-    {
-      "id": "2",
-      "name": "Maria Oliveira",
-      "email": "maria@email.com",
-      "phone": "11988888888",
-      "notes": "Família"
-    }
-  ]
+  "people": []
 }

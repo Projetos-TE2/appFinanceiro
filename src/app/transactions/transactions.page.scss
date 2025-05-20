@@ -37,8 +37,19 @@ h2 {
 .transaction-content {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 18px;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.transaction-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ion-color-warning-tint);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
 }
 
 .transaction-icon img, .transaction-icon ion-icon {
@@ -51,24 +62,33 @@ h2 {
 }
 
 .transaction-details {
-  flex: 1;
+  flex: 1 1 0%;
+  min-width: 0;
 }
 
 .transaction-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .transaction-date {
-  color: var(--ion-color-medium);
   font-size: 0.95em;
+  color: var(--ion-color-medium);
+}
+
+.transaction-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .transaction-category {
-  color: var(--ion-color-primary);
-  font-weight: 600;
-  font-size: 1em;
+  font-size: 0.95em;
+  color: var(--ion-color-dark-tint);
+  font-weight: 500;
 }
 
 .transaction-categories {
@@ -89,10 +109,10 @@ ion-chip {
 }
 
 .transaction-amount {
-  font-size: 1.2em;
-  font-weight: bold;
-  min-width: 120px;
+  min-width: 100px;
   text-align: right;
+  font-size: 1.1em;
+  font-weight: 600;
 }
 
 .valor-positivo {
@@ -104,9 +124,8 @@ ion-chip {
 
 .transaction-actions {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-left: 12px;
+  align-items: center;
+  gap: 4px;
 }
 
 ion-fab-button.botao-adicionar {

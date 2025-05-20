@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content class="ion-padding" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Categorias</ion-title>
@@ -15,41 +15,41 @@
   </ion-header>
 
   <div class="transaction-container">
-    @for(category of categories; track category.id) {
-    <ion-card class="transaction-card">
-      <div class="transaction-content">
-        <div class="transaction-icon">
+    <ng-container *ngIf="categories?.length; else emptyState">
+      <ion-card class="transaction-card category-card" *ngFor="let category of categories; trackBy: trackById">
+        <div class="category-content">
+          <div class="category-icon">
+            <ion-icon [name]="getCategoryIcon(category) || 'pricetag-outline'" size="large"></ion-icon>
+          </div>
+          <div class="category-details">
+            <div class="category-header">
+              <h2>{{category.name}}</h2>
+              <span class="category-type">{{category.type || 'Sem tipo'}}</span>
+            </div>
+            <div class="category-description">
+              {{category.description || 'Sem descrição'}}
+            </div>
+          </div>
+          <div class="transaction-actions">
+            <ion-button fill="clear" size="small" color="danger" (click)="remove(category)">
+              <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-card>
+    </ng-container>
+    <ng-template #emptyState>
+      <ion-card class="empty-state">
+        <ion-card-content>
           <ion-icon name="pricetag-outline" size="large"></ion-icon>
-        </div>
-        <div class="transaction-details">
-          <div class="transaction-header">
-            <h2>{{category.name}}</h2>
-            <span class="transaction-date">{{category.type || 'Sem tipo'}}</span>
-          </div>
-          <div class="transaction-info">
-            <span class="transaction-category">{{category.description || 'Sem descrição'}}</span>
-          </div>
-        </div>
-        <div class="transaction-actions">
-          <ion-button fill="clear" size="small" color="danger" (click)="remove(category)">
-            <ion-icon name="trash" slot="icon-only"></ion-icon>
-          </ion-button>
-        </div>
-      </div>
-    </ion-card>
-    }
-    @empty {
-    <ion-card class="empty-state">
-      <ion-card-content>
-        <ion-icon name="pricetag-outline" size="large"></ion-icon>
-        <p>Nenhuma categoria cadastrada ainda!</p>
-      </ion-card-content>
-    </ion-card>
-    }
+          <p>Nenhuma categoria cadastrada ainda!</p>
+        </ion-card-content>
+      </ion-card>
+    </ng-template>
   </div>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button class="botao-adicionar">
+    <ion-fab-button class="botao-adicionar" [routerLink]="['/categories/new']">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

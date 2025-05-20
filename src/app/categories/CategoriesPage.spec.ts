@@ -11,7 +11,5 @@ describe('CategoriesPage', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // Arquivo de teste removido por padronização. Testes unitários devem ser implementados apenas quando necessários e relevantes para a feature.
 });

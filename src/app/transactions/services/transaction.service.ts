@@ -1,37 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from '../models/transaction.type';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
-
   private readonly API_URL = 'http://localhost:3000/transactions';
 
   constructor(private http: HttpClient) { }
 
-  getById(transactionId: string) {
-    return this.http.get<Transaction>(`${this.API_URL}/${transactionId}`);
+  getList(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(this.API_URL);
   }
 
-  getList() {
-    return this.http.get<Transaction[]>(this.API_URL)
+  getById(id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.API_URL}/${id}`);
   }
 
-  private add(transaction: Transaction) {
+  create(transaction: Transaction): Observable<Transaction> {
     return this.http.post<Transaction>(this.API_URL, transaction);
   }
 
-  private update(transaction: Transaction) {
+  update(transaction: Transaction): Observable<Transaction> {
     return this.http.put<Transaction>(`${this.API_URL}/${transaction.id}`, transaction);
   }
 
-  save(transaction: Transaction) {
-    return transaction.id ? this.update(transaction) : this.add(transaction);
-  }
-
-  remove(transaction: Transaction) {
+  remove(transaction: Transaction): Observable<Transaction> {
     return this.http.delete<Transaction>(`${this.API_URL}/${transaction.id}`);
   }
 }

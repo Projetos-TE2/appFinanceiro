@@ -1,28 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Account } from '../transactions/models/account.type';
 import { AccountService } from '../transactions/services/account.service';
 import { AlertController, ToastController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+import { EventService } from 'src/app/core/services/event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.page.html',
   styleUrls: ['./accounts.page.scss'],
-  standalone: true,
-  imports: [CommonModule, IonicModule]
+  standalone: false,
 })
-export class AccountsPage implements OnInit {
+export class AccountsPage implements OnInit, OnDestroy {
   accountsList: Account[] = [];
+  private dataChangedSubscription: Subscription;
 
   constructor(
     private accountService: AccountService,
     private alertController: AlertController,
-    private toastController: ToastController
-  ) { }
+    private toastController: ToastController,
+    private eventService: EventService
+  ) {
+    this.dataChangedSubscription = this.eventService.dataChanged$.subscribe((changed) => {
+      if (changed) {
+        this.loadAccounts();
+      }
+    });
+  }
 
-  ngOnInit() {
-    this.loadAccounts();
+  ngOnDestroy() {
+    if (this.dataChangedSubscription) {
+      this.dataChangedSubscription.unsubscribe();
+    }
+  }
+
+  ionViewDidEnter() {
+    this.eventService.forceUpdate();
+  }
+
+  trackById(index: number, item: Account) {
+    return item.id;
   }
 
   loadAccounts() {
@@ -31,8 +51,11 @@ export class AccountsPage implements OnInit {
         this.accountsList = response;
       },
       error: (error: any) => {
-        alert('Erro ao carregar lista de contas');
-        console.error(error);
+        this.toastController.create({
+          message: 'Erro ao carregar lista de contas',
+          duration: 2000,
+          color: 'danger'
+        }).then(t => t.present());
       }
     });
   }
@@ -56,8 +79,11 @@ export class AccountsPage implements OnInit {
                 }).then(toast => toast.present());
               },
               error: (error: any) => {
-                alert('Erro ao excluir a conta ' + account.name);
-                console.error(error);
+                this.toastController.create({
+                  message: 'Erro ao excluir a conta ' + account.name,
+                  duration: 2000,
+                  color: 'danger'
+                }).then(t => t.present());
               }
             });
           }
@@ -65,5 +91,9 @@ export class AccountsPage implements OnInit {
         'Não'
       ]
     }).then(alert => alert.present());
+  }
+
+  ngOnInit() {
+    this.loadAccounts();
   }
 }
