@@ -16,7 +16,7 @@
 
   <div class="transaction-container">
     <ng-container *ngIf="accountsList?.length; else emptyState">
-      <ion-card class="transaction-card" *ngFor="let account of accountsList; trackBy: trackById">
+      <ion-card class="category-card" *ngFor="let account of accountsList; trackBy: trackById">
         <div class="transaction-content">
           <div class="transaction-icon">
             <ion-icon name="card-outline" size="large"></ion-icon>

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding light-text">
   <form [formGroup]="accountForm" (ngSubmit)="save()" novalidate>
     <ion-list>
       <ion-item [class.invalid]="isInvalid('name')">
@@ -31,7 +31,7 @@
       <ion-note color="danger" *ngIf="isInvalid('balance')">Saldo é obrigatório.</ion-note>
 
       <ion-item>
-        <ion-input formControlName="manufacture" labelPlacement="floating" label="Fabricante" type="text"></ion-input>
+        <ion-input formControlName="manufacture" labelPlacement="floating" label="Dono da Conta" type="text"></ion-input>
       </ion-item>
     </ion-list>
   </form>

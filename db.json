@@ -16,21 +16,6 @@
       "id": "1"
     },
     {
-      "title": "Aluguel",
-      "image": "https://cdn-icons-png.flaticon.com/512/1040/1040993.png",
-      "launchDate": "2024-03-10T03:00:00.000Z",
-      "price": -1500,
-      "category": "Despesa",
-      "accounts": [
-        {
-          "id": "mor",
-          "name": "Moradia",
-          "manufacture": "Despesas Fixas"
-        }
-      ],
-      "id": "2"
-    },
-    {
       "id": "3",
       "title": "Conta de Luz",
       "category": "Despesa",
@@ -59,6 +44,42 @@
         }
       ],
       "id": "4"
+    },
+    {
+      "id": "8d19",
+      "title": "Carro",
+      "image": "https://cdn-icons-png.flaticon.com/512/1040/1040993.png",
+      "launchDate": "2005-08-25T03:00:00.000Z",
+      "price": -22000,
+      "category": "Despesa",
+      "type": "Utilitário",
+      "accounts": [
+        {
+          "id": "1",
+          "name": "Conta Corrente",
+          "type": "Corrente",
+          "balance": 2500,
+          "institution": "Banco do Brasil"
+        }
+      ]
+    },
+    {
+      "id": "cdcc",
+      "title": "Aluguel",
+      "image": "https://cdn-icons-png.flaticon.com/512/1040/1040993.png",
+      "launchDate": "1003-08-24T03:06:28.000Z",
+      "price": 1500,
+      "category": "Receita",
+      "type": "Lazer",
+      "accounts": [
+        {
+          "id": "1",
+          "name": "Conta Corrente",
+          "type": "Corrente",
+          "balance": 2500,
+          "institution": "Banco do Brasil"
+        }
+      ]
     }
   ],
   "categories": [
@@ -67,28 +88,16 @@
       "name": "Despesa"
     },
     {
-      "id": "0b4d",
+      "id": "17ef",
+      "name": "Receita",
+      "type": "Receita",
+      "description": "Receita"
+    },
+    {
+      "id": "1495",
       "name": "Teste",
-      "type": "teste",
-      "description": "teste"
-    },
-    {
-      "id": "f433",
-      "name": "teste2",
-      "type": "teste2",
-      "description": ""
-    },
-    {
-      "id": "7398",
-      "name": "teste3",
-      "type": "teste3",
-      "description": ""
-    },
-    {
-      "id": "2622",
-      "name": "teste",
-      "type": "teste",
-      "description": "teste"
+      "type": "Teste",
+      "description": "Teste"
     }
   ],
   "accounts": [
@@ -98,14 +107,15 @@
       "type": "Corrente",
       "balance": 2500,
       "institution": "Banco do Brasil"
-    },
-    {
-      "id": "2",
-      "name": "Poupança",
-      "type": "Poupança",
-      "balance": 5000,
-      "institution": "Caixa Econômica"
     }
   ],
-  "people": []
+  "people": [
+    {
+      "id": "3186",
+      "name": "Raphael Caetano Garcia Valinhas",
+      "email": "rgvalinhas@outlook.com",
+      "phone": "48999542837",
+      "notes": "Matutino"
+    }
+  ]
 }

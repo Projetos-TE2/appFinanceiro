@@ -33,8 +33,9 @@
 
       <ion-item [class.invalid]="isInvalid('type')">
         <ion-select formControlName="type" label="Tipo" label-placement="floating">
-          <ion-select-option value="Receita">Receita</ion-select-option>
-          <ion-select-option value="Despesa">Despesa</ion-select-option>
+          <ion-select-option value="Lazer">Lazer</ion-select-option>
+          <ion-select-option value="Utilitário">Utilitário</ion-select-option>
+          <ion-select-option value="Alimentação">Alimentação</ion-select-option>
         </ion-select>
       </ion-item>
       <ion-note color="danger" *ngIf="isInvalid('type')">Tipo é obrigatório.</ion-note>
