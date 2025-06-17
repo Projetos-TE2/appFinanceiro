@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "app-financeiro-backend",
+		"name": "App Financeiro - Backend API",
+		"description": "Collection completa para testar a API do App Financeiro desenvolvida em NestJS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "1. Usuários",
+			"item": [
+				{
+					"name": "Criar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"usuario@teste.com\",\n  \"password\": \"123456\",\n  \"name\": \"Usuário Teste\",\n  \"phone\": \"(11) 99999-9999\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Listar Usuários",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Usuário por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Usuário",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Usuário Atualizado\",\n  \"phone\": \"(11) 88888-8888\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["users", "1"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Usuário",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/2",
+							"host": ["{{base_url}}"],
+							"path": ["users", "2"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Email Duplicado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@financeiro.com\",\n  \"password\": \"123456\",\n  \"name\": \"Teste Erro\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Senha Muito Curta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"teste@email.com\",\n  \"password\": \"123\",\n  \"name\": \"Teste\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": ["{{base_url}}"],
+							"path": ["users"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Categorias",
+			"item": [
+				{
+					"name": "Criar Categoria",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Tecnologia\",\n  \"type\": \"Despesa\",\n  \"description\": \"Gastos com tecnologia e eletrônicos\",\n  \"color\": \"#2196F3\",\n  \"icon\": \"laptop\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": ["{{base_url}}"],
+							"path": ["categories"]
+						}
+					}
+				},
+				{
+					"name": "Listar Todas Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": ["{{base_url}}"],
+							"path": ["categories"]
+						}
+					}
+				},
+				{
+					"name": "Listar Categorias por Tipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories?type=Receita",
+							"host": ["{{base_url}}"],
+							"path": ["categories"],
+							"query": [
+								{
+									"key": "type",
+									"value": "Receita"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Categoria por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/1",
+							"host": ["{{base_url}}"],
+							"path": ["categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Categoria",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"description\": \"Descrição atualizada\",\n  \"color\": \"#FF5722\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories/1",
+							"host": ["{{base_url}}"],
+							"path": ["categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Categoria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/categories/13",
+							"host": ["{{base_url}}"],
+							"path": ["categories", "13"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Nome Duplicado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Salário\",\n  \"type\": \"Receita\",\n  \"description\": \"Teste duplicado\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": ["{{base_url}}"],
+							"path": ["categories"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Tipo Inválido",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Teste\",\n  \"type\": \"TipoInvalido\",\n  \"description\": \"Teste\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/categories",
+							"host": ["{{base_url}}"],
+							"path": ["categories"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Instituições",
+			"item": [
+				{
+					"name": "Criar Instituição",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Banco Original\",\n  \"code\": \"212\",\n  \"website\": \"https://www.original.com.br\",\n  \"phone\": \"(11) 3003-3030\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"]
+						}
+					}
+				},
+				{
+					"name": "Listar Instituições",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Instituição por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/1",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Instituição",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phone\": \"(11) 4004-4004\",\n  \"website\": \"https://www.original.com.br/novo\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions/9",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "9"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Instituição",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/institutions/9",
+							"host": ["{{base_url}}"],
+							"path": ["institutions", "9"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Nome Duplicado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Banco do Brasil\",\n  \"code\": \"999\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Código Duplicado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Banco Teste\",\n  \"code\": \"001\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/institutions",
+							"host": ["{{base_url}}"],
+							"path": ["institutions"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Contas",
+			"item": [
+				{
+					"name": "Criar Conta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Conta Investimentos\",\n  \"type\": \"Investimento\",\n  \"balance\": 10000.00,\n  \"accountNumber\": \"55555-5\",\n  \"agency\": \"5555\",\n  \"institutionId\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"]
+						}
+					}
+				},
+				{
+					"name": "Listar Todas Contas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"]
+						}
+					}
+				},
+				{
+					"name": "Listar Contas por Instituição",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/accounts?institutionId=1",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"],
+							"query": [
+								{
+									"key": "institutionId",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Buscar Conta por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/accounts/1",
+							"host": ["{{base_url}}"],
+							"path": ["accounts", "1"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Conta",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"balance\": 12000.00,\n  \"accountNumber\": \"55555-6\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/accounts/5",
+							"host": ["{{base_url}}"],
+							"path": ["accounts", "5"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Conta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/accounts/5",
+							"host": ["{{base_url}}"],
+							"path": ["accounts", "5"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Nome Duplicado na Instituição",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Conta Corrente Principal\",\n  \"type\": \"Corrente\",\n  \"balance\": 1000.00,\n  \"institutionId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Saldo Negativo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Conta Teste\",\n  \"type\": \"Corrente\",\n  \"balance\": -500.00,\n  \"institutionId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Instituição Inexistente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Conta Teste\",\n  \"type\": \"Corrente\",\n  \"balance\": 1000.00,\n  \"institutionId\": 999\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/accounts",
+							"host": ["{{base_url}}"],
+							"path": ["accounts"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Transações",
+			"item": [
+				{
+					"name": "Criar Transação",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Compra Online\",\n  \"amount\": -150.00,\n  \"description\": \"Compra de livros online\",\n  \"transactionDate\": \"2024-11-15T14:30:00Z\",\n  \"image\": \"https://example.com/receipt.jpg\",\n  \"categoryId\": 11,\n  \"accountId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"]
+						}
+					}
+				},
+				{
+					"name": "Listar Todas Transações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"]
+						}
+					}
+				},
+				{
+					"name": "Listar Transações por Conta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions?accountId=1",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"],
+							"query": [
+								{
+									"key": "accountId",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Transações por Categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions?categoryId=5",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "5"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Listar Transações por Período",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions?startDate=2024-11-01&endDate=2024-11-30",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2024-11-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-11-30"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Obter Resumo Financeiro",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions/balance",
+							"host": ["{{base_url}}"],
+							"path": ["transactions", "balance"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Transação por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions/1",
+							"host": ["{{base_url}}"],
+							"path": ["transactions", "1"]
+						}
+					}
+				},
+				{
+					"name": "Atualizar Transação",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Compra Online Atualizada\",\n  \"amount\": -175.00,\n  \"description\": \"Descrição atualizada\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions/7",
+							"host": ["{{base_url}}"],
+							"path": ["transactions", "7"]
+						}
+					}
+				},
+				{
+					"name": "Deletar Transação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/transactions/7",
+							"host": ["{{base_url}}"],
+							"path": ["transactions", "7"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Valor Positivo para Despesa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Teste Erro\",\n  \"amount\": 100.00,\n  \"transactionDate\": \"2024-11-15T14:30:00Z\",\n  \"categoryId\": 5,\n  \"accountId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Valor Negativo para Receita",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Teste Erro\",\n  \"amount\": -100.00,\n  \"transactionDate\": \"2024-11-15T14:30:00Z\",\n  \"categoryId\": 1,\n  \"accountId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"]
+						}
+					}
+				},
+				{
+					"name": "Erro - Saldo Insuficiente",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Gasto Muito Alto\",\n  \"amount\": -999999.00,\n  \"transactionDate\": \"2024-11-15T14:30:00Z\",\n  \"categoryId\": 5,\n  \"accountId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/transactions",
+							"host": ["{{base_url}}"],
+							"path": ["transactions"]
+						}
+					}
+				}
+			]
+		}
+	]
+}
